@@ -1,0 +1,100 @@
+Sub extract_and_compute()
+    Dim last_row As Long
+    last_row = Cells(Rows.Count, 1).End(xlUp).Row
+    
+    For i = 2 To last_row
+        If Abs(CDbl(Cells(i, 2).Value) - CDbl(Cells(6, 14).Value)) < 0.0001 Then
+            a1 = i
+        ElseIf Abs(CDbl(Cells(i, 2).Value) - CDbl(Cells(6, 15).Value)) < 0.0001 Then
+            a2 = i
+
+        ElseIf Abs(CDbl(Cells(i, 2).Value) - CDbl(Cells(7, 14).Value)) < 0.0001 Then
+            b1 = i
+        ElseIf Abs(CDbl(Cells(i, 2).Value) - CDbl(Cells(7, 15).Value)) < 0.0001 Then
+            b2 = i
+
+        ElseIf Abs(CDbl(Cells(i, 2).Value) - CDbl(Cells(8, 14).Value)) < 0.0001 Then
+            c1 = i
+        ElseIf Abs(CDbl(Cells(i, 2).Value) - CDbl(Cells(8, 15).Value)) < 0.0001 Then
+            c2 = i
+
+        ElseIf Abs(CDbl(Cells(i, 2).Value) - CDbl(Cells(9, 14).Value)) < 0.0001 Then
+            d1 = i
+        ElseIf Abs(CDbl(Cells(i, 2).Value) - CDbl(Cells(9, 15).Value)) < 0.0001 Then
+            d2 = i
+
+        ElseIf Abs(CDbl(Cells(i, 2).Value) - CDbl(Cells(10, 14).Value)) < 0.0001 Then
+            e1 = i
+        ElseIf Abs(CDbl(Cells(i, 2).Value) - CDbl(Cells(10, 15).Value)) < 0.0001 Then
+            e2 = i
+
+        ElseIf Abs(CDbl(Cells(i, 2).Value) - CDbl(Cells(11, 14).Value)) < 0.0001 Then
+            f1 = i
+        ElseIf Abs(CDbl(Cells(i, 2).Value) - CDbl(Cells(11, 15).Value)) < 0.0001 Then
+            f2 = i
+
+        ElseIf Abs(CDbl(Cells(i, 2).Value) - CDbl(Cells(12, 14).Value)) < 0.0001 Then
+            g1 = i
+        ElseIf Abs(CDbl(Cells(i, 2).Value) - CDbl(Cells(12, 15).Value)) < 0.0001 Then
+            g2 = i
+
+        ElseIf Abs(CDbl(Cells(i, 2).Value) - CDbl(Cells(13, 14).Value)) < 0.0001 Then
+            h1 = i
+        ElseIf Abs(CDbl(Cells(i, 2).Value) - CDbl(Cells(13, 15).Value)) < 0.0001 Then
+            h2 = i
+        End If
+    Next i
+    ' 速度的选择，注意第一个文件的速度是在H列
+    range1 = "C" + CStr(a1) + ":" + "C" + CStr(a2)
+    range2 = "C" + CStr(b1) + ":" + "C" + CStr(b2)
+    range3 = "C" + CStr(c1) + ":" + "C" + CStr(c2)
+    range4 = "C" + CStr(d1) + ":" + "C" + CStr(d2)
+    range5 = "C" + CStr(e1) + ":" + "C" + CStr(e2)
+    range6 = "C" + CStr(f1) + ":" + "C" + CStr(f2)
+    range7 = "C" + CStr(g1) + ":" + "C" + CStr(g2)
+    range8 = "C" + CStr(h1) + ":" + "C" + CStr(h2)
+    
+    ' 加速度选择
+    a_range1 = "D" + CStr(a1) + ":" + "D" + CStr(a2)
+    a_range2 = "D" + CStr(b1) + ":" + "D" + CStr(b2)
+    a_range3 = "D" + CStr(c1) + ":" + "D" + CStr(c2)
+    a_range4 = "D" + CStr(d1) + ":" + "D" + CStr(d2)
+    a_range5 = "D" + CStr(e1) + ":" + "D" + CStr(e2)
+    a_range6 = "D" + CStr(f1) + ":" + "D" + CStr(f2)
+    a_range7 = "D" + CStr(g1) + ":" + "D" + CStr(g2)
+    a_range8 = "D" + CStr(h1) + ":" + "D" + CStr(h2)
+    
+    ' 方向盘角度的选择
+    s_range1 = "E" + CStr(a1) + ":" + "E" + CStr(a2)
+    s_range2 = "E" + CStr(b1) + ":" + "E" + CStr(b2)
+    s_range3 = "E" + CStr(c1) + ":" + "E" + CStr(c2)
+    s_range4 = "E" + CStr(d1) + ":" + "E" + CStr(d2)
+    s_range5 = "E" + CStr(e1) + ":" + "E" + CStr(e2)
+    s_range6 = "E" + CStr(f1) + ":" + "E" + CStr(f2)
+    s_range7 = "E" + CStr(g1) + ":" + "E" + CStr(g2)
+    s_range8 = "E" + CStr(h1) + ":" + "E" + CStr(h2)
+    
+
+    ' 计算平均速度
+   average_velocity = WorksheetFunction.Average(Union(Range(range1), Range(range2), Range(range3), Range(range4), Range(range5), Range(range6), Range(range7), Range(range8)))
+    '计算速度标准差
+   velocity_st_dev = WorksheetFunction.StDev_S(Union(Range(range1), Range(range2), Range(range3), Range(range4), Range(range5), Range(range6), Range(range7), Range(range8)))
+    ' 计算加速度标准差
+   acc_st_dev = WorksheetFunction.StDev_S(Union(Range(a_range1), Range(a_range2), Range(a_range3), Range(a_range4), Range(a_range5), Range(a_range6), Range(a_range7), Range(a_range8)))
+    ' 计算方向盘转角标准差
+   steer_st_dev = WorksheetFunction.StDev_S(Union(Range(s_range1), Range(s_range2), Range(s_range3), Range(s_range4), Range(s_range5), Range(s_range6), Range(s_range7), Range(s_range8)))
+    
+   res = "average_velocity:" + Str(average_velocity) + " " + "velocity_st_dev:" + Str(velocity_st_dev) + " " + "acc_st_dev:" + Str(acc_st_dev) + " " + "steer_st_dev:" + Str(steer_st_dev) + " "
+
+
+   Cells(2, 8).Value = Round(average_velocity, 3)
+   Cells(2, 9).Value = Round(velocity_st_dev, 3)
+   Cells(2, 10).Value = Round(acc_st_dev, 3)
+   Cells(2, 11).Value = Round(steer_st_dev, 3)
+End Sub
+
+
+
+
+
+
